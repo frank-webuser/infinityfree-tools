@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Frank's IF Tools</title>
+        <meta charset="'utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/style.css" type="text/css" rel="stylesheet">
+        <link href="css/font-awesome.min.css" type="text/css" rel="stylesheet">
+        <script src="js/jquery.js"></script>
+        <script src="js/script.js"></script>
+    </head>
+
+    <body>
+        <div class="bottom-bar">
+            Domain name:
+            <input id="domain" type="text" placeholder="infinityfree.com">
+            <button onclick="test()" class="btn">Test</button>
+        </div>
+        <div class="wrapper">
+            <div class="sidenav-background"></div>
+            <div class="sidenav-wrapper">
+                <div id="sidenav-toggle" class="fa fa-navicon"></div>
+                <ul id="sidenav" class="sidenav">
+                    <li data-target-page="1" onclick="switch_page(this)" class="sidenav-item active"><span class="fa fa-fw fa-server"></span>&nbsp; Nameservers</li>
+                    <li data-target-page="2" onclick="switch_page(this)" class="sidenav-item"><span class="fa fa-fw fa-gear"></span>&nbsp; DNS</li>
+                    <li data-target-page="3" onclick="switch_page(this)" class="sidenav-item"><span class="fa fa-fw fa-lock"></span>&nbsp; SSL</li>
+                    <li data-target-page="4" onclick="switch_page(this)" class="sidenav-item"><span class="fa fa-fw fa-user"></span>&nbsp; Whois</li>
+                    <li data-target-page="5" onclick="switch_page(this)" class="sidenav-item"><span class="fa fa-fw fa-support"></span>&nbsp; KB Articles</li>
+                    <li data-target-page="6" onclick="switch_page(this)" class="sidenav-item"><span class="fa fa-fw fa-folder"></span>&nbsp; Templates</li>
+                    <li data-target-page="7" onclick="switch_page(this)" class="sidenav-item"><span class="fa fa-fw fa-info"></span>&nbsp; Credits</li>
+                </ul>
+            </div>
+            <div class="content-wrapper" id="p1">
+                <div class="content">
+                    <div class="alert-wrapper warning">
+                        <div class="side-wrapper"><div class="side"><span class="fa fa-warning"></span></div></div>
+                        <div class="alert">
+                            <div class="alert-title">Important notice:</div>
+                            <div class="alert-content">This tool didn't let me down, it *usually* gives out incorrect responses. 🙃 Especially when using subdomains.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Nameservers</div>
+                        <div id="ns" class="dialog-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper" id="p2">
+                <div class="content">
+                    <div class="alert-wrapper warning">
+                        <div class="side-wrapper"><div class="side"><span class="fa fa-warning"></span></div></div>
+                        <div class="alert">
+                            <div class="alert-title">Important notice:</div>
+                            <div class="alert-content">This tool doesn't work well with Cloudflare ns. If a domain is on Cloudflare, please visit the domain directly to further determine the problem.</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="dns" class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">DNS Records</div>
+                        <div id="dns_records" class="dialog-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper" id="p3">
+                <div class="content">
+                    <div class="alert-wrapper warning">
+                        <div class="side-wrapper"><div class="side"><span class="fa fa-warning"></span></div></div>
+                        <div class="alert">
+                            <div class="alert-title">Important notice:</div>
+                            <div class="alert-content">God knows why it was timing out every now and then. 😡 And just as expected, subdomains are mostly broken.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">SSL Certificate</div>
+                        <div id="ssl" class="dialog-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper" id="p4">
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Whois data</div>
+                        <div id="whois" class="dialog-content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper" id="p5">
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">SSL Certificate</div>
+                        <div class="dialog-content">
+                            <ul>
+                                <li>https://forum.infinityfree.net/t/how-to-get-free-ssl-https-on-infinityfree/49323</li>
+                                <li>https://forum.infinityfree.net/t/how-to-install-an-ssl-certificate/49324</li>
+                                <li>https://forum.infinityfree.net/t/how-to-force-all-traffic-to-https/49322</li>
+                            </ul>
+                            <p class="hidden" id="kb1">
+https://forum.infinityfree.net/t/how-to-get-free-ssl-https-on-infinityfree/49323
+https://forum.infinityfree.net/t/how-to-install-an-ssl-certificate/49324
+https://forum.infinityfree.net/t/how-to-force-all-traffic-to-https/49322
+                            </p>
+                            <button onclick="copy_content('#kb1')" class="btn">Copy All</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Cloudflare</div>
+                        <div class="dialog-content">
+                            <ul>
+                                <li>https://forum.infinityfree.net/t/a-full-guide-to-cloudflare/44451</li>
+                                <li>https://forum.infinityfree.net/t/how-to-setup-full-ssl-with-cloudflare/60679</li>
+                            </ul>
+                            <p class="hidden" id="kb2">
+https://forum.infinityfree.net/t/a-full-guide-to-cloudflare/44451
+https://forum.infinityfree.net/t/how-to-setup-full-ssl-with-cloudflare/60679
+                            </p>
+                            <button onclick="copy_content('#kb2')" class="btn">Copy All</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">File size limit</div>
+                        <div class="dialog-content">
+                            <ul>
+                                <li>https://forum.infinityfree.net/t/what-is-the-file-upload-size-limit/49308</li>
+                                <li>https://forum.infinityfree.net/t/how-to-upload-big-files-archives/49305</li>
+                            </ul>
+                            <p class="hidden" id="kb3">
+https://forum.infinityfree.net/t/what-is-the-file-upload-size-limit/49308
+https://forum.infinityfree.net/t/how-to-upload-big-files-archives/49305
+                            </p>
+                            <button onclick="copy_content('#kb3')" class="btn">Copy All</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Nameservers</div>
+                        <div class="dialog-content">
+                            <ul>
+                                <li>https://forum.infinityfree.net/t/how-to-point-your-domain-name-to-infinityfree-nameservers/49232</li>
+                            </ul>
+                            <p class="hidden" id="kb4">
+                                https://forum.infinityfree.net/t/how-to-point-your-domain-name-to-infinityfree-nameservers/49232
+                            </p>
+                            <button onclick="copy_content('#kb4')" class="btn">Copy All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper" id="p6">
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">1.1.1.1</div>
+                        <div class="dialog-content">
+                            <p id="tm1">
+If you are not patient - you can help yourself with this and speed things up
+P.S. most routers need a restart to pull new settings
+https://tunecomp.net/use-1-1-1-1-cloudflare-dns-on-router-pc-iphone-android/
+                            </p>
+                            <button onclick="copy_content('#tm1')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Find your hosting IP</div>
+                        <div class="dialog-content">
+                            <p id="tm2">
+Please look in the client area (after choosing acc)
+it says <b>Website IP</b><br>
+
+![image|690x250](upload://8EFjrTGMNryN4cbMed9ZmcbhW3q.png)
+                            </p>
+                            <button onclick="copy_content('#tm2')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Clear browser cache</div>
+                        <div class="dialog-content">
+                            <p id="tm3">
+Please clear the browser cache by pressing a few times <kbd>Ctrl</kbd> + <kbd>F5</kbd> while viewing your website.
+If that doesn't help (because some browsers are stubborn) then follow these instructions
+
+https://tinkertechlab.com/webhosting/security/how-to-clear-your-browsers-cache
+                            </p>
+                            <button onclick="copy_content('#tm3')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Mixed content (WP only)</div>
+                        <div class="dialog-content">
+                            <p id="tm4">
+Mixed content!
+
+When HTTPS is used, all resources should be requested via the HTTPS protocol and not via HTTP.
+Please use the plugin from the article (SSL Insecure Content Fixer)
+
+https://www.wpbeginner.com/plugins/how-to-fix-the-mixed-content-error-in-wordpress-step-by-step/
+                            </p>
+                            <button onclick="copy_content('#tm4')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Mixed content (WP + elementor)</div>
+                        <div class="dialog-content">
+                            <p id="tm5">
+Mixed content!
+
+When HTTPS is used, all resources should be requested via the HTTPS protocol and not via HTTP.
+Please use the plugin from the article (SSL Insecure Content Fixer)
+
+https://www.wpbeginner.com/plugins/how-to-fix-the-mixed-content-error-in-wordpress-step-by-step/
+
+Also your site uses Elementor
+
+https://wpmantis.com/fix-mixed-content-elementor-built-websites/
+                            </p>
+                            <button onclick="copy_content('#tm5')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Cloudflare with free subdomain</div>
+                        <div class="dialog-content">
+                            <p id="tm6">
+You must own a custom domain to use Cloudflare. You cannot use a free subdomain.
+If you have a custom domain, you can connect it to Cloudflare via dash.cloudflare.com
+and then create (in the DNS section on CF) the correct A records with the IP address of your hosting account.
+                            </p>
+                            <button onclick="copy_content('#tm6')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">How to name files/folders</div>
+                        <div class="dialog-content">
+                            <p id="tm7">
+![image|690x318](upload://3PheMfAO5m1Y1GTMgpPZWP9Lo9U.png)
+
+### How to Name Files/folders
+
+Do Not Use Special Characters
+
+For best results, you should only use the letters a-z, A-Z, the numbers 0-9, hyphens (-), underscores (_) and periods (.). Any other character could get you in trouble, causing the file not to load or the page to load incorrectly.
+it is best to use lowercase letters, also Do Not Use Any Spaces.
+                            </p>
+                            <button onclick="copy_content('#tm7')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Enable Directory Listing</div>
+                        <div class="dialog-content">
+                            <p id="tm8">
+Please create a .htaccess file (on root) with this content:
+```
+#Disable Directory Listings in this Directory and Subdirectories
+Options +Indexes
+```
+                            </p>
+                            <button onclick="copy_content('#tm8')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Forcing HTTPS</div>
+                        <div class="dialog-content">
+                            <p id="tm9">
+Please create a .htaccess file (on root) with this content:
+```
+RewriteEngine On
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:CF-Visitor} !{"scheme":"https"}
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+```
+                            </p>
+                            <button onclick="copy_content('#tm9')" class="btn">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-wrapper" id="p7">
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">About this Tool</div>
+                        <div class="dialog-content">
+                            <p>Made with ❤️ by Frank419</p>
+                            <p><a href="https://github.com/frank-webuser/">GitHub</a></p>
+                            <p>Licensed under the GPL v3.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="dialog">
+                        <div class="dialog-title">Used libraries:</div>
+                        <div class="dialog-content">
+                            <div class="content">
+                                <div class="dialog">
+                                    <div class="dialog-title">io-developer/php-whois</div>
+                                    <div class="dialog-content">
+                                        <p><a href="https://github.com/io-developer/php-whois/">GitHub</a></p>
+                                        <p>Licensed under the MIT.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

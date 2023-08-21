@@ -1,0 +1,260 @@
+body {
+    background-color: Ivory;
+}
+
+a {
+    color: DodgerBlue;
+    text-decoration: none;
+}
+
+a:visited {
+    color: SlateBlue;
+}
+
+td {
+    margin: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.sidenav-background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 300px;
+    min-height: 100%;
+    background-color: DarkSeaGreen;
+}
+
+.sidenav-wrapper {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 300px;
+    list-style-type: none;
+}
+
+.sidenav {
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+}
+
+.sidenav-item {
+    display: block;
+    width: 300px;
+    margin: 10px 0px;
+    color: Ivory;
+    /* font-size: 200%; */
+    padding: 0px;
+    padding-left: 10px;
+}
+
+.active {
+    color: DarkSeaGreen;
+    background-color: Ivory;
+}
+
+#sidenav-toggle {
+    display: none;
+}
+
+.content-wrapper {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: calc(100% - 300px);
+    display: none;
+    overflow: auto;
+}
+
+.content {
+    margin: 30px;
+}
+
+.content:nth-last-child(1) {
+    margin-bottom: 56px;
+}
+
+.alert-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 30px;
+}
+
+.alert {
+    padding: 10px;
+}
+
+.alert-title {
+    font-weight: bold;
+}
+
+.warning,
+.info,
+.close,
+.check {
+    border: solid;
+    border-width: 1px;
+}
+
+.warning {
+    background-color: #fff8e5;
+    border-color: #ffb900;
+    color: #ffb900;
+}
+
+.warning .side {
+    background-color: #ffb900;
+    color: #fff8e5;
+}
+
+.info {
+    background-color: #e5f5fa;
+    border-color: #00a0d2;
+    color: #00a0d2;
+}
+
+.info .side {
+    background-color: #00a0d2;
+    color: #e5f5fa;
+}
+
+.close {
+    background-color: #fbeaea;
+    border-color: #dc3232;
+    color: #dc3232;
+}
+
+.close .side {
+    background-color: #dc3232;
+    color: #fbeaea;
+}
+
+.check {
+    background-color: #eff7ed;
+    border-color: #64b450;
+    color: #64b450;
+}
+
+.check .side {
+    background-color: #64b450;
+    color: #eff7ed;
+}
+
+.dialog {
+    border: solid;
+    border-width: 1px;
+    border-color: DarkSeaGreen;
+    background-color: Transparent;
+}
+
+.dialog-title {
+    background-color: DarkSeaGreen;
+    color: Ivory;
+    padding: 5px 10px;
+}
+
+.dialog-content {
+    padding: 10px;
+}
+
+input {
+    border: solid;
+    border-width: 1px;
+    border-radius: 0px;
+    border-color: Black;
+    padding: 5px 10px;
+}
+
+.btn {
+    color: White;
+    border: none;
+    border-radius: 0px;
+    background-color: SlateBlue;
+    padding: 5px 10px;
+    transition: all 150ms;
+}
+
+.btn:hover {
+    background-color: DarkSlateBlue;
+}
+
+.btn:active {
+    background-color: Black;
+}
+
+.last {
+    float: left;
+}
+
+.next {
+    float: right;
+}
+
+.valid::after {
+    content: 'VALID';
+    background-color: SeaGreen;
+    color: White;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.invalid::after {
+    content: 'INVALID';
+    background-color: OrangeRed;
+    color: White;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.expire::after {
+    content: 'EXPIRING';
+    background-color: DarkOrange;
+    color: White;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+
+.bottom-bar {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 26px;
+    background-color: DarkSeaGreen;
+    z-index: 1;
+    padding: 10px;
+    color: Ivory;
+}
+
+.bottom-bar input {
+    width: 50%;
+}
+
+.bottom-bar button {
+    width: 10%;
+}
+
+#p1 {
+    display: block;
+}
+
+/* @media screen and ( max-width: 600px ) {
+    #sidenav-toggle {
+        display: block;
+    }
+    .sidenav {
+        display: none;
+    }
+} */
