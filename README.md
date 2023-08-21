@@ -10,10 +10,11 @@ Dependencies:
 
 - PHP 7.2+
 - [io-developer/php-whois](https://github.com/io-developer/php-whois/)
+- font-awesome v4
 
-The `php-whois` library should already be included.
+The `php-whois` and FontAwesome library should already be included.
 
-If you prefer to install on you own, then go to the `functions` folder and run:
+If you prefer to install php-whois on you own, then go to the `functions` folder and run:
 
 ```
 composer require io-developer/php-whois
