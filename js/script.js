@@ -1,5 +1,6 @@
 var current_page = 1;
 var tested = [0, 0, 0, 0];
+var last_test = '';
 
 function show_alert(type, title, msg) {
     var tmp = '<div class="content wait"><div class="alert-wrapper ';
@@ -15,7 +16,7 @@ function show_alert(type, title, msg) {
 }
 
 function hide_wait() {
-    $(".wait").remove();
+    $("#p" + String(current_page)).children(".wait").remove();
 }
 
 function get_nameservers() {
@@ -52,7 +53,7 @@ function get_nameservers() {
                 show_alert(result, title, msg);
             };
             if(data.search(if_ns) != -1) {
-                ns_type.push('if_ns');
+                ns_type.push('if');
                 title = 'The domain is using infinityfree.com nameservers.';
                 msg = 'This is correct if the hosting account starts with if0_. If not, please use epizy.com nameservers.'
             };
@@ -80,19 +81,21 @@ function get_nameservers() {
                 title = 'The domain contains invalid nameservers.';
                 msg = 'Please refer to the KB articles for more information.';
             }
+            // console.log(ns_type);
             if(ns_type.length == 1 && result == 'check') {
                 show_alert(result, title, msg);
             } else {
                 if(ns_type.length == 0) {
-                    result = 'close';
-                    title = 'No nameservers found.';
-                    msg = 'Make sure that the domain is already registered.';
                     if(data.search(/\./) != -1) {
-                        title = 'The domain contains invaild nameservers.';
+                        result = 'close';
+                        title = 'The domain contains invalid nameservers.';
                         msg = 'Please refer to the KB articles for more information.';
+                    } else {
+                        result = 'close';
+                        title = 'No nameservers found.';
+                        msg = 'Make sure that the domain is already registered.';
                     }
-                }
-                if(result == 'check') {
+                } else {
                     result = 'close';
                     title = 'The domain is mixing nameservers.';
                     msg = 'Please use only one nameserver at a time.';
@@ -139,9 +142,13 @@ function get_whois_data() {
 }
 
 function test() {
-    console.log(current_page);
+    // console.log(current_page);
     if($("#domain").val().search(/\b([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\b/) == -1) {
         return;
+    };
+    if(last_test != $("#domain").val()) {
+        last_test = $("#domain").val();
+        tested = [0, 0, 0, 0];
     }
     hide_wait();
     show_alert('info', 'Fetching data...', 'Please wait for a moment.');
@@ -160,8 +167,6 @@ function test() {
             get_whois_data();
             break;
         default:
-            hide_wait();
-            tested = [0, 0, 0, 0];
             break;
     }
 }
@@ -169,17 +174,25 @@ function test() {
 function switch_page(elem) {
     var target = elem.dataset.targetPage;
     current_page = parseInt(target);
-    console.log(current_page);
-    console.log(tested);
+    // console.log(current_page);
+    // console.log(tested);
     if(tested[current_page - 1] == 0) {
         test();
-        console.log(tested);
+        // console.log(tested);
     }
     $(".content-wrapper").hide();
     $("#p" + String(target)).show();
     $(".sidenav-item").removeClass("active");
     elem.classList.add("active");
 }
+
+$("document").ready(function() {
+    $("body").keypress(function(event) {
+        if(event.which == "13") {
+            test();
+        };
+    });
+});
 
 function copy_content(elem) {
     navigator.clipboard.writeText($(elem).html().trim());
