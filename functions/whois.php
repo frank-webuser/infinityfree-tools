@@ -20,11 +20,21 @@ if ($whois->isDomainAvailable($_GET['domain'])) {
 
 // Getting parsed domain info
 $info = $whois -> loadDomainInfo($_GET['domain']);
-$valid = $info -> expirationDate - time();
+$expire = $info -> expirationDate;
+if(is_string($info -> expirationDate)) {
+    $valid = 999999;
+} else {
+    $valid = $expire - time();
+};
 echo '<table>';
 echo '<tr><td>Domain created</td><td>' . date("Y-m-d", $info -> creationDate) . '</td></tr>';
-echo '<tr><td>Domain expires</td><td>' . date("Y-m-d", $info -> expirationDate) . '</td></tr>';
-echo '<tr><td>Domain owner</td><td>' . $info->owner . '</td></tr>';
+if(is_string($expire)) {
+    $expout = $expire;
+} else {
+    $expout = date("Y-m-d", $expire);
+};
+echo '<tr><td>Domain expires</td><td>' . $expout . '</td></tr>';
+echo '<tr><td>Domain owner</td><td>' . $info -> owner . '</td></tr>';
 echo '<tr><td>Domain valid</td><td>';
 if($valid > 864000) {
     echo '<span class="valid"></span>';

@@ -1,7 +1,7 @@
 <?php
     if(preg_match('/\b([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\b/', $_GET['domain'])) {
         $domain = $_GET['domain'];
-        echo 'SSL Certficate info of: ' . $domain;
+        // echo 'SSL Certficate info of: ' . $domain;
         $get = stream_context_create(array("ssl" => array("capture_peer_cert" => TRUE, "verify_peer" => FALSE, "verify_peer_name" => FALSE)));
         $read = stream_socket_client("ssl://".$domain.":443", $errno, $errstr, 30, STREAM_CLIENT_CONNECT, $get);
         $cert = stream_context_get_params($read);
