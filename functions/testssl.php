@@ -1,4 +1,10 @@
 <?php
+    function error_handler($errno, $errstr) {
+        echo '<script>hide_wait();show_alert("close", "No SSL certificate was found.", "Please refer to the KB articles for more information.")</script>';
+        die;
+    };
+    set_error_handler('error_handler', E_ALL);
+    error_reporting(0);
     if(preg_match('/\b([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\b/', $_GET['domain'])) {
         $domain = $_GET['domain'];
         // echo 'SSL Certficate info of: ' . $domain;
